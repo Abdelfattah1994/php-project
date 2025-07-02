@@ -1,12 +1,8 @@
-name: PHP Quality Assurance
+name: Continuous Integration
 
 on:
   push:
-    branches:
-      - main
-      - feature/test-deploy-skip
   pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -16,49 +12,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup PHP
+      - name: Setup PHP 8.2 with Composer
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4.8'
+          php-version: '8.2'
           tools: composer:v2
-          coverage: xdebug
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: dist-${{ runner.os }}-php-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            dist-${{ runner.os }}-php-
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
-
-      - name: Run Linter
+        run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
+       
+      - name: Run Linter (PHP CS Fixer)
         run: composer lint
 
-      - name: Run Static Analysis
+      - name: Run Static Analysis (PHPStan)
         run: composer analyse
-
-      - name: Run Tests (PHPUnit)
-        run: composer test
-
-      - name: Generate and Upload Coverage Report
-        env:
-          XDEBUG_MODE: coverage
-        run: |
-          vendor/bin/phpunit --coverage-html build/coverage
-
-      - name: Upload coverage artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: code-coverage-report
-          path: build/coverage/
-  deploy:
-    needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Simuler le déploiement en production
-        run: |
-          echo "Déploiement sur le serveur de production..."
-          echo "Connexion via SSH..."
-          sleep 2
-          echo "Pull du code depuis le dépôt Git..."
-          sleep 2
-          echo "Lancement des migrations de base de données..."
-          sleep 3
-          echo "Déploiement terminé avec succès !"
