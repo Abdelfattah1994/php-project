@@ -2,7 +2,8 @@
 <phpunit bootstrap="vendor/autoload.php"
          colors="true"
          stopOnFailure="false"
-         executionOrder="default">
+         cacheResult="false"
+         verbose="true">
 
     <testsuites>
         <testsuite name="Application Test Suite">
@@ -10,10 +11,10 @@
         </testsuite>
     </testsuites>
 
-    <coverage>
-        <include>
+    <filter>
+        <whitelist>
             <directory suffix=".php">src</directory>
-        </include>
-    </coverage>
+        </whitelist>
+    </filter>
 
 </phpunit>
