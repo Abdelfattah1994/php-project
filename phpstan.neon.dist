@@ -1,7 +1,5 @@
-# Fichier de configuration pour PHPStan
 parameters:
-# Chemins à analyser (adaptez à votre projet !)
-paths:
-- src
-- tests
-- public/index.php
+    scanPaths:
+        - src
+        - tests
+        - public/index.php
