@@ -10,6 +10,6 @@ class GreeterTest extends TestCase
     public function testGreetReturnsExpectedString()
     {
         $greeter = new Greeter();
-        $this->assertEquals('Hello from src!', $greeter->greet());
+        $this->assertEquals('Hello from src!!!', $greeter->greet());
     }
 }
