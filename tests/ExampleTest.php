@@ -1,21 +1,14 @@
 <?php
+namespace App\Tests;
 
 use PHPUnit\Framework\TestCase;
+use App\Greeter;
 
-class ExampleTest extends TestCase
+class GreeterTest extends TestCase
 {
-    public function testTrueIsTrue()
+    public function testGreetReturnsExpectedString()
     {
-        $this->assertTrue(true);
-    }
-
-    public function testSum()
-    {
-        $this->assertEquals(4, 2 + 2);
-    }
-
-    public function testStringContains()
-    {
-        $this->assertStringContainsString('Hello', 'Hello World');
+        $greeter = new Greeter();
+        $this->assertEquals('Hello from src!', $greeter->greet());
     }
 }
