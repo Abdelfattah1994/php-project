@@ -6,6 +6,7 @@ class Greeter
 {
     public function greet(): string
     {
+        $message ='';
         return 'Hello from src!';
     }
 }
