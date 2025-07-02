@@ -1,5 +1,9 @@
+includes:
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+
 parameters:
-    scanPaths:
+    paths:
         - src
         - tests
         - public/index.php
+    level: 1
