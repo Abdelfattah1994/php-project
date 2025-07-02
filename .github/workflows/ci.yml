@@ -17,24 +17,30 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.2'
           tools: composer:v2
           coverage: xdebug
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
-      - name: Run Linter (PHP-CS-Fixer)
+      - name: Run Linter
         run: composer lint
 
-      - name: Run Static Analysis (PHPStan)
+      - name: Run Static Analysis
         run: composer analyse
 
-      - name: Run Tests
+      - name: Run Tests (PHPUnit)
         run: composer test
 
-      - name: Upload Coverage Report
-        uses: actions/upload-artifact@v3
+      - name: Generate and Upload Coverage Report
+        env:
+          XDEBUG_MODE: coverage
+        run: |
+          vendor/bin/phpunit --coverage-html build/coverage
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-report
+          name: code-coverage-report
           path: build/coverage/
