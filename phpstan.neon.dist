@@ -1,7 +1,5 @@
 # Fichier de configuration pour PHPStan
 parameters:
-# Niveau d'analyse (0-9). Commencez bas !
-level: 1
 # Chemins à analyser (adaptez à votre projet !)
 paths:
 - src
