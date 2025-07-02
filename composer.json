@@ -3,7 +3,7 @@
     "scripts": {
     "lint": "php vendor/bin/php-cs-fixer fix --dry-run",
     "analyse": "phpstan analyse src",
-    "test": "phpunit"
+    "test": "phpunit --coverage-html build/coverage"
     },
     "type": "project",
     "autoload": {
