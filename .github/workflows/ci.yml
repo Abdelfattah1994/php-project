@@ -2,7 +2,9 @@ name: PHP Quality Assurance
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+      - feature/test-deploy-skip
   pull_request:
     branches: [ "main" ]
 
